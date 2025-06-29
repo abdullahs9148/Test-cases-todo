@@ -15,7 +15,7 @@ pipeline {
         stage('Run Selenium Tests') {
             steps {
                 sh '''
-                    /home/ubuntu/.local/bin/pytest --maxfail=1 --disable-warnings
+                     /home/ubuntu/.local/bin/pytest --maxfail=1 --disable-warnings
                 '''
             }
         }
