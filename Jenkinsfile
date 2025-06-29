@@ -1,24 +1,22 @@
 pipeline {
-    agent {
-        docker {
-            image 'selenium/standalone-chrome:latest'
-        }
-    }
+    agent any
+
     environment {
         PYTHONUNBUFFERED = '1'
     }
+
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/your-username/your-repo.git'  // ✅ Replace with your GitHub repo URL
+                git 'https://github.com/abdullahs9148/Test-cases-todo.git'
             }
         }
 
-        stage('Setup Python') {
+        stage('Setup Python Environment') {
             steps {
                 sh '''
-                    apt-get update
-                    apt-get install -y python3 python3-pip
+                    sudo apt-get update
+                    sudo apt-get install -y python3 python3-pip
                     pip3 install pytest selenium
                 '''
             }
@@ -34,7 +32,7 @@ pipeline {
     }
     post {
         always {
-            echo "Build finished. Check above for test results."
+            echo "Build finished. Check console output for test results."
         }
     }
 }
