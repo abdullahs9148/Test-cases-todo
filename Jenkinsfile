@@ -12,11 +12,11 @@ pipeline {
             }
         }
 
-        stage('Run Selenium Tests') {
-            steps {
-                sh '''
-                     /home/ubuntu/.local/bin/pytest --maxfail=1 --disable-warnings
-                '''
+      stage('Run Selenium Tests') {
+        steps {
+            sh '''
+                python3 -m pytest --maxfail=1 --disable-warnings
+            '''
             }
         }
     }
