@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         PYTHONUNBUFFERED = '1'
+        CHROME_PROFILE_DIR = "${env.WORKSPACE}/chrome-profile-${env.BUILD_NUMBER}"
     }
 
     stages {
