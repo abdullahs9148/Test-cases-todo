@@ -18,6 +18,9 @@ def driver():
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
     
+    build_number = os.getenv('BUILD_NUMBER', 'default')
+    options.add_argument(f"--user-data-dir=/tmp/chrome-profile-{build_number}")
+    
     driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(10)
     yield driver
