@@ -8,10 +8,9 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git clone 'https://github.com/abdullahs9148/Test-cases-todo.git'
+                git 'https://github.com/abdullahs9148/Test-cases-todo.git'
             }
         }
-
         stage('Setup Python Environment') {
             steps {
                 sh '''
