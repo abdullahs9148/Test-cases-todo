@@ -13,7 +13,6 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
 BASE_URL = "http://localhost:3000"  # Adjust this URL if needed
 
 @pytest.fixture
-@pytest.fixture
 def driver():
     options = Options()
     options.add_argument("--headless=new")
