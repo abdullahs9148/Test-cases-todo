@@ -12,11 +12,19 @@ pipeline {
             }
         }
 
-      stage('Run Selenium Tests') {
-        steps {
-            sh '''
-                 /var/lib/jenkins/.local/bin/pytest --maxfail=1 --disable-warnings
-            '''
+        stage('Kill Existing Chrome Instances') {
+            steps {
+                sh '''
+                    pkill chrome || true
+                '''
+            }
+        }
+
+        stage('Run Selenium Tests') {
+            steps {
+                sh '''
+                    /var/lib/jenkins/.local/bin/pytest --maxfail=1 --disable-warnings
+                '''
             }
         }
     }
