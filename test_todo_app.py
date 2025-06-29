@@ -19,15 +19,17 @@ def driver():
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
     
-    build_number = os.getenv('BUILD_NUMBER', 'local')  # Jenkins passes BUILD_NUMBER env var
-    user_data_dir = f"/tmp/chrome-profile-{build_number}"
-    options.add_argument(f"--user-data-dir={user_data_dir}")
+    tmp_profile_dir = tempfile.mkdtemp(prefix="chrome-profile-")
+    options.add_argument(f"--user-data-dir={tmp_profile_dir}")
+
 
     
     driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(10)
     yield driver
     driver.quit()
+    
+    shutil.rmtree(tmp_profile_dir, ignore_errors=True)
 
 def test_debug_html_structure(driver):
     """Debug test to see the actual HTML structure"""
