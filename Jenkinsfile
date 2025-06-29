@@ -2,6 +2,7 @@ pipeline {
     agent {
         docker {
             image 'python:3.11-slim'   // ✅ Docker container with Python pre-installed
+            args '-u root'              // ✅ Run container as root user to allow pip install
         }
     }
 
@@ -32,4 +33,10 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            echo "✅ Build finished. Check console output for results."
+        }
     }
+}
