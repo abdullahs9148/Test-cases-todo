@@ -1,5 +1,4 @@
 import os
-import time
 import tempfile
 import shutil
 import pytest
@@ -10,29 +9,32 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
-
-BASE_URL = "http://localhost:3000"  # Updated to match your app URL
-
 @pytest.fixture
 def driver():
     options = Options()
-    # options.add_argument("--headless")  # <-- Comment out or remove this line
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
-    
-    tmp_profile_dir = tempfile.mkdtemp(prefix="chrome-profile-")
-    options.add_argument(f"--user-data-dir={tmp_profile_dir}")
 
+    # Set Jenkins workspace temp chrome profile folder
+    chrome_profile_dir = os.getenv('CHROME_PROFILE_DIR')
 
-    
+    if chrome_profile_dir:
+        options.add_argument(f"--user-data-dir={chrome_profile_dir}")
+    else:
+        tmp_profile_dir = tempfile.mkdtemp(prefix="chrome-profile-")
+        options.add_argument(f"--user-data-dir={tmp_profile_dir}")
+
     driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(10)
     yield driver
     driver.quit()
-    
-    shutil.rmtree(tmp_profile_dir, ignore_errors=True)
+
+    # Optional cleanup
+    if not chrome_profile_dir and tmp_profile_dir:
+        shutil.rmtree(tmp_profile_dir, ignore_errors=True)
+
 
 def test_debug_html_structure(driver):
     """Debug test to see the actual HTML structure"""
