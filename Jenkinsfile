@@ -11,15 +11,15 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/abdullahs9148/Test-cases-todo.git'
             }
         }
-        stage('Setup Python Environment') {
-            steps {
-                sh '''
-                    apt-get update
-                    apt-get install -y python3 python3-pip
-                    pip3 install pytest selenium
-                '''
-            }
-        }
+        // stage('Setup Python Environment') {
+        //     steps {
+        //         sh '''
+        //             apt-get update
+        //             apt-get install -y python3 python3-pip
+        //             pip3 install pytest selenium
+        //         '''
+        //     }
+        // }
 
         stage('Run Selenium Tests') {
             steps {
