@@ -16,8 +16,8 @@ pipeline {
         stage('Setup Python Environment') {
             steps {
                 sh '''
-                    sudo apt-get update
-                    sudo apt-get install -y python3 python3-pip
+                    apt-get update
+                    apt-get install -y python3 python3-pip
                     pip3 install pytest selenium
                 '''
             }
