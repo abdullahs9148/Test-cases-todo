@@ -32,10 +32,4 @@ pipeline {
             }
         }
     }
-
-    post {
-        always {
-            echo "✅ Build finished. Check console output for results."
-        }
     }
-}
