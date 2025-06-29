@@ -9,20 +9,21 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 git branch: 'main', url: 'https://github.com/abdullahs9148/Test-cases-todo.git'
-
             }
         }
+
         stage('Run Selenium Tests') {
             steps {
                 sh '''
-                    pytest --maxfail=1 --disable-warnings
+                    /home/ubuntu/.local/bin/pytest --maxfail=1 --disable-warnings
                 '''
             }
         }
     }
+
     post {
         always {
-            echo "Build finished. Check console output for test results."
+            echo "✅ Build finished. Check console output for results."
         }
     }
 }
