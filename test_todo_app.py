@@ -19,8 +19,10 @@ def driver():
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
     
-    build_number = os.getenv('BUILD_NUMBER', 'default')
-    options.add_argument(f"--user-data-dir=/tmp/chrome-profile-{build_number}")
+    build_number = os.getenv('BUILD_NUMBER', 'local')  # Jenkins passes BUILD_NUMBER env var
+    user_data_dir = f"/tmp/chrome-profile-{build_number}"
+    options.add_argument(f"--user-data-dir={user_data_dir}")
+
     
     driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(10)
