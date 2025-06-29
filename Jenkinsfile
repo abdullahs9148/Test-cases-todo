@@ -15,7 +15,7 @@ pipeline {
       stage('Run Selenium Tests') {
         steps {
             sh '''
-                python3 -m pytest --maxfail=1 --disable-warnings
+                 /var/lib/jenkins/.local/bin/pytest --maxfail=1 --disable-warnings
             '''
             }
         }
